@@ -1,0 +1,57 @@
+{
+  "name": "nightline-pov",
+  "version": "1.0.0",
+  "description": "NightLine POV - first-person sport sedan driving game (Three.js + Electron)",
+  "author": "muba14",
+  "license": "MIT",
+  "main": "electron/main.cjs",
+  "private": true,
+  "scripts": {
+    "build": "esbuild src/main.js --bundle --format=iife --minify --outfile=dist/game.js",
+    "start": "npm run build && electron .",
+    "dist": "npm run build && electron-builder --win --x64 --publish never"
+  },
+  "devDependencies": {
+    "three": "^0.187.0",
+    "esbuild": "^0.28.2",
+    "electron": "^45.4.1",
+    "electron-builder": "^26.18.0"
+  },
+  "build": {
+    "appId": "com.muba14.nightlinepov",
+    "productName": "NightLine POV",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "index.html",
+      "dist/**",
+      "electron/**"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png"
+    },
+    "portable": {
+      "artifactName": "NightLinePOV-${version}-portable.exe"
+    },
+    "nsis": {
+      "artifactName": "NightLinePOV-${version}-setup.exe",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
